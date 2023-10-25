@@ -143,3 +143,93 @@ Estos son solo algunos ejemplos. Prácticamente cualquier empresa que necesite c
 # Comparación de funciones de Griptape.ai y Langchain
 CaracterísticaLangchainGriptape.aiArquitecturaEncadenadoLLM basados ​​en gráficos (DAG)Integraciones”LLM como servicio“EnfoquePrototiposConectores de datos listos para producciónMódulos de memoriaLive SQL, NoSQL, etc.SeguridadAdministrado por el usuarioControles de acceso, cifradoSoporte comercialComunidadPlanes de soporte empresarialPersonalizaciónMódulosCualquier paso en el flujo de trabajo
 
+# Parte 6: Cree un chatbot que aprenda y recuerde: una guía sencilla con MemGPT
+
+Con MemGPT, prepárese para crear un chatbot con memoria perpetua, haciendo que cada conversación sea más fluida, más relevante y sorprendentemente humana. Esta guía iluminará su camino para aprovechar MemGPT para crear un chatbot que no solo conversa sino que recuerda, aprende y crece.
+
+Por qué es importante la memoria
+Memory-GPT (o MemGPT en resumen) es un sistema que administra de manera inteligente diferentes niveles de memoria en LLM para proporcionar de manera efectiva un contexto extendido dentro de la ventana de contexto limitada del LLM. Por ejemplo, MemGPT sabe cuándo enviar información crítica a una base de datos vectorial y cuándo recuperarla más tarde en el chat, lo que permite conversaciones perpetuas.
+
+## Instalar dependencias:
+
+pip install -r requisitos. TXT
+Agregue su clave API de OpenAI a su entorno:
+
+exportar OPENAI_API_KEY=TU_API_KEY
+Para ejecutar MemGPT como agente de conversación en modo CLI, simplemente ejecute main.py:
+
+python3 principal .py
+Para crear un nuevo usuario inicial o personaje inicial (con el que se inicializa MemGPT), cree un nuevo .txtarchivo en /memgpt/humans/examples o /memgpt/personas/examples , luego use el indicador --personao --humancuando ejecute main.py. Por ejemplo:
+
+# asumiendo que creaste un nuevo archivo /memgpt/humans/examples/me .txt
+ python main .py  --human me .txt
+main.py Flags:
+
+--persona
+   carga un archivo de persona específico 
+--human
+   carga un archivo humano específico 
+--first
+   le permite enviar el primer mensaje en el chat ( de forma  predeterminada , MemGPT enviará el primer mensaje) 
+--debug
+   habilita la salida de depuración 
+--archival_storage_faiss_path= <ARCHIVAL_STORAGE_FAISS_PATH>
+   cargar en la base de datos de documentos (respaldada por el índice FAISS) 
+--archival_storage_files="<ARCHIVAL_STORAGE_FILES_GLOB>"
+   precargar archivos en la memoria de archivo --archival_storage_sqldb=<SQLDB_PATH>   cargar en la base de datos SQL
+
+ 
+Comandos CLI interactivos
+Mientras usa MemGPT a través de la CLI, puede ejecutar varios comandos:
+
+/salir 
+  salir de la CLI 
+/guardar 
+  guardar un punto de control del agente actual/estado de conversación 
+/cargar 
+  cargar un punto de control guardado 
+/volcar ver el registro
+   de mensajes actual (ver el contenido del contexto principal) /memoria imprimir el contenido actual de la memoria del agente /   deshacer pop el último mensaje de la conversación /latido   enviar un mensaje del sistema de latido al agente /advertencia de memoria   enviar un mensaje del sistema de advertencia de memoria al agente
+
+ 
+# Configurando la memoria de tu chatbot
+Antes de que su chatbot pueda recordar, necesita una memoria para almacenar y recuperar información. Esta memoria le permite mantener el contexto entre conversaciones y volverse más inteligente con cada interacción.
+
+## Inicializar MemGPT con un
+ chatbot de configuración de memoria = memgpt.MemGPT ( memory_enable = True ) 
+
+## Definir parámetros de memoria
+ chatbot.set_memory_params ( size = 1000 )   # establece el tamaño de la memoria
+Al inicializar MemGPT con la memoria habilitada y definir su tamaño, estás configurando una zona de pruebas cognitiva. Este espacio es donde su chatbot almacenará fragmentos de conversación y aprenderá de ellos para mejorar futuras interacciones.
+
+# Conversar con el contexto
+Con la memoria instalada, su chatbot ahora puede mantener un hilo de conversación, haciendo que las interacciones sean más naturales y menos parecidas a hablar con una máquina.
+
+## Iniciar una conversación
+ respuesta = chatbot.chat( "Hola, ¿cómo estás?" , recuerda = Verdadero )   # permitir que el bot recuerde esta conversación 
+imprimir (respuesta)
+La chatfunción es donde se desarrolla la magia. El rememberparámetro es crucial; dicta si el chatbot debe almacenar esta conversación en su memoria.
+
+# Aprendizaje continuo a través de la memoria autoeditable
+La memoria de MemGPT no es sólo un espacio de almacenamiento; es una entidad dinámica y autoeditable. El chatbot evalúa y edita su memoria, dejando espacio para la información relevante y descartando la insignificante.
+
+## Función para habilitar la memoria de autoedición
+ chatbot.enable_self_editing(interval=50)   # habilita la autoedición cada 50 interacciones
+Esta función es revolucionaria. Al habilitar la autoedición, le permite al chatbot hacer una introspección del contenido de su memoria, decidiendo qué vale la pena recordar y qué no, de manera muy similar a la memoria humana.
+
+# Cifrar conversaciones
+En un mundo donde los datos son oro, el cifrado es el guardián. Cuando su chatbot recuerda conversaciones, asegurarse de que esos recuerdos estén cifrados protege la privacidad del usuario.
+
+## Habilitar el cifrado de conversaciones
+ chatbot.enable_encryption(encryption_key= "tu-clave-única" )
+
+Al invocar enable_encryption, no solo estás cifrando las conversaciones en tránsito y almacenamiento. Estás prometiendo privacidad y seguridad a cada usuario con el que interactúa.
+
+# Seguimiento del rendimiento: comprender el crecimiento de su chatbot
+El viaje de aprendizaje de un chatbot es continuo. Hacer un seguimiento de su desempeño y comprender su trayectoria de crecimiento es esencial para lograr mejoras.
+
+## Seguimiento del rendimiento del chatbot
+ performance_metrics = chatbot.track_performance() 
+print (rendimiento_metrics)
+
+La track_performancefunción obtiene métricas vitales sobre las conversaciones, el uso de la memoria y la trayectoria de aprendizaje del chatbot, ofreciendo información sobre su crecimiento cognitivo.
