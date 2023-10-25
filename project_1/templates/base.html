@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/base_styles.css' %}"> <!-- Link the external CSS file -->
+</head>
+<body>
+<header>
+  <h1>{% block heading %}{% endblock %}</h1>
+</header>
+{% include 'header.html' %}
+{% block content %}{% endblock %}
+{% include 'footer.html' %}
+<script>
+   function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('sidebar-collapsed');
+        }
+  function untoggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.remove('sidebar-collapsed');
+        }
+</script>
+</body>
+</html>

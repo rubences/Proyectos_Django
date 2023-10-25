@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block heading %}{{category_name}}{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="sidebar">
+        <h2>Search and Filter</h2>
+          <div class="search-box">
+            <form action="#" method="get" class="search-box">
+              <input type="text" id="searchInput" name="search" placeholder="Search...">
+              <button type="submit" id="searchButton">Search</button>
+            </form>
+          </div>
+        <h2>Filter by Playlist</h2>
+        <ul class="playlist-list">
+          <li data-filter="all" class="active"><a href="{% url 'gallery' %}">All Videos</a></li>
+            {% for cat in categs %}
+            <li><a href="{{cat.get_absolute_url}}"><button class="query-button">{{cat.category_name|truncatewords:5}}</button></a></li>
+            {% endfor %}
+            <!-- Add more playlists as needed -->
+        </ul>
+    </div>
+    <div class="video-gallery">
+      {% for vid in videos %}
+        {% if forloop.counter|divisibleby:"2" %}
+          <div class="video">
+            <a href="https://www.youtube.com/watch?v={{vid.video_id}}">
+              <img src="{{vid.featured_image}}" alt="{{vid.title}}">
+              </a>
+              <p>{{vid.title}}</p>
+          </div>
+        {% else %}
+        <div class="video">
+          <a href="https://www.youtube.com/watch?v={{vid.video_id}}">
+            <img src="{{vid.featured_image}}" alt="{{vid.title}}">
+            </a>
+        </div>
+        {% endif %}
+        <!-- Add more videos with their thumbnails and assign them to corresponding playlists -->
+      {% endfor %}
+    </div>
+</div>
+{% endblock %}
